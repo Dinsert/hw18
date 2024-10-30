@@ -17,19 +17,30 @@ public class Main {
 
     }
 
-    public static void checkLoginPasswordConfirmPassword(String login, String password, String confirmPassword) throws WrongLoginException {
+    public static void checkLoginPasswordConfirmPassword(String login, String password, String confirmPassword) {
+        checkLogin(login);
+        checkPassword(password);
+        checkConfirmPassword(password,confirmPassword);
+    }
+
+    private static void checkLogin(String login) {
         int maximumNumberByCharactersAllowed = 20;
         if (isNull(login) || login.isBlank() || login.length() > maximumNumberByCharactersAllowed || !checkingALineForCorrectnessOfEnteredData(login)) {
             throw new WrongLoginException();
         }
-        if (isNull(password) || password.length() > maximumNumberByCharactersAllowed || !checkingALineForCorrectnessOfEnteredData(password)) {
+    }
+
+    private static void checkPassword(String password) {
+        int maximumNumberByCharactersAllowed = 20;
+        if (isNull(password) || password.isBlank() || password.length() > maximumNumberByCharactersAllowed || !checkingALineForCorrectnessOfEnteredData(password)) {
             throw new WrongPasswordException();
         }
+    }
+
+    private static void checkConfirmPassword(String password, String confirmPassword) {
         if (!password.equals(confirmPassword)) {
             throw new WrongPasswordException();
         }
-
-
     }
 
     private static boolean checkingALineForCorrectnessOfEnteredData(String string) {
